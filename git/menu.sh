@@ -82,7 +82,12 @@ then
       # Bloquear o commit na branch main/master
       BRANCH="$(git rev-parse --abbrev-ref HEAD)"
       if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
-         echo "You can't commit directly to main/master branch"
+         echo "###################################################"
+         echo "#                                                 #"
+         echo "# You can't commit directly to main/master branch #"
+         echo "#                                                 #"
+         echo "###################################################"
+         echo ""
          echo -n "Enter to exit: "
          read CLOSE
       else
