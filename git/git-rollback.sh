@@ -22,10 +22,11 @@
 # resultar em diferenças entre o repositório local e o remoto,
 # inutilizando o repositório local.
 #
-echo "ROLLBACK"
-echo "--------------------------------------------------"
+echo "----------------------------------------"
+echo " ROLLBACK"
+echo "----------------------------------------"
 git log --pretty=oneline
-echo "--------------------------------------------------"
+echo ""
 echo -n "Do you want to delete the last commit? (y/n): "
 read VAR
 
@@ -34,6 +35,7 @@ then
    echo ""
    echo "Commands:"
    echo "$ git reset HEAD~1 --hard"
+   echo ""
    echo -n "Enter to confirm: "
    read CONFIRM
    echo ""
@@ -43,6 +45,7 @@ then
 else
    echo "Invalid parameter. Nothing to do."
 fi
+echo ""
 echo -n "Enter to return to the menu: "
 read CLOSE
 clear

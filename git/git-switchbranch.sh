@@ -14,12 +14,12 @@
 # --> COMMAND <--
 # $ sh git-switchbranch.sh
 #
-echo "SWITCH-BRANCH"
-echo "--------------------------------------------------"
+echo "----------------------------------------"
+echo " SWITCH-BRANCH"
+echo "----------------------------------------"
 git branch
-echo "--------------------------------------------------"
-
-echo -n "Type the branch: "
+echo ""
+echo -n "Type branch: "
 read BRANCH
 
 if [ "$BRANCH" != "" ]
@@ -27,15 +27,17 @@ then
    echo ""
    echo "Commands:"
    echo "$ git checkout $BRANCH"
+   echo ""
    echo -n "Enter to confirm: "
    read CONFIRM
    echo ""
 
    git checkout "$BRANCH";
-   echo "Switched to branch $BRANCH."
+   # echo "Switched to branch $BRANCH."
 else
    echo "Invalid parameter. Nothing to do."
 fi
+echo ""
 echo -n "Enter to return to the menu: "
 read CLOSE
 clear

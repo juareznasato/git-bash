@@ -14,11 +14,12 @@
 # --> COMMAND <--
 # $ sh git-newtag.sh
 #
-echo "NEW-TAG"
-echo "--------------------------------------------------"
+echo "----------------------------------------"
+echo " NEW-TAG"
+echo "----------------------------------------"
 git tag
-echo "--------------------------------------------------"
-echo -n "Type the tag: "
+echo ""
+echo -n "Type tag: "
 read TAG
 echo -n "Message: "
 read MESSAGE
@@ -29,6 +30,7 @@ then
    echo "Commands:"
    echo "$ git tag -a $TAG -m $MESSAGE"
    echo "$ git push origin $TAG"
+   echo ""
    echo -n "Enter to confirm: "
    read CONFIRM
    echo ""
@@ -39,6 +41,7 @@ then
 else
    echo "Invalid parameter. Nothing to do."
 fi
+echo ""
 echo -n "Enter to return to the menu: "
 read CLOSE
 clear

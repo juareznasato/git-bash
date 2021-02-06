@@ -14,19 +14,21 @@
 # --> COMMAND <--
 # $ sh git-pull.sh
 #
-echo "PULL"
-echo "--------------------------------------------------"
+echo "----------------------------------------"
+echo " PULL"
+echo "----------------------------------------"
 git branch
-echo "--------------------------------------------------"
+echo ""
 # default=""
 default=$(git symbolic-ref -q --short HEAD)
-read -p "Type the branch [$default]: " VAR
+read -p "Type branch [$default]: " VAR
 : ${VAR:=$default}
 if [ "$VAR" != "" ]
 then
    echo ""
    echo "Commands:"
    echo "$ git pull origin $VAR"
+   echo ""
    echo -n "Enter to confirm: "
    read CONFIRM
    echo ""
@@ -35,6 +37,7 @@ then
 else
    echo "Invalid parameter. Nothing to do."
 fi
+echo ""
 echo -n "Enter to return to the menu: "
 read CLOSE
 clear

@@ -15,11 +15,12 @@
 # $ sh git-deletebranch.sh
 # Faz a exclusão remota e depois local
 #
-echo "DELETE-BRANCH"
-echo "--------------------------------------------------"
+echo "----------------------------------------"
+echo " DELETE-BRANCH"
+echo "----------------------------------------"
 git branch
-echo "--------------------------------------------------"
-echo -n "Type the branch: "
+echo ""
+echo -n "Type branch: "
 read BRANCH
 
 default="main"
@@ -33,6 +34,7 @@ then
    echo "$ git checkout $MAIN_BRANCH"
    echo "$ git push origin $BRANCH --delete"
    echo "$ git branch -D $BRANCH"
+   echo ""
    echo -n "Enter to continue: "
    read CONFIRM
    echo ""
@@ -47,6 +49,7 @@ then
 else
    echo "Invalid parameter. Nothing to do."
 fi
+echo ""
 echo -n "Enter to return to the menu: "
 read CLOSE
 clear

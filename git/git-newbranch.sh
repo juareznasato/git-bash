@@ -14,11 +14,12 @@
 # --> COMMAND <--
 # $ sh git-newbranch.sh
 #
-echo "NEW-BRANCH"
-echo "--------------------------------------------------"
+echo "----------------------------------------"
+echo " NEW-BRANCH"
+echo "----------------------------------------"
 git branch
-echo "--------------------------------------------------"
-echo -n "Type the branch: "
+echo ""
+echo -n "Type branch: "
 read BRANCH
 
 if [ "$BRANCH" != "" ]
@@ -27,6 +28,7 @@ then
    echo "Commands:"
    echo "$ git checkout -b $BRANCH"
    echo "$ git push origin $BRANCH"
+   echo ""
    echo -n "Enter to continue: "
    read CONFIRM
    echo ""
@@ -37,6 +39,7 @@ then
 else
    echo "Invalid parameter. Nothing to do."
 fi
+echo ""
 echo -n "Enter to return to the menu: "
 read CLOSE
 clear

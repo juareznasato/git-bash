@@ -14,13 +14,13 @@
 # --> COMMAND <--
 # $ sh git-push.sh
 #
-echo "PUSH"
-echo "--------------------------------------------------"
+echo "----------------------------------------"
+echo " PUSH"
+echo "----------------------------------------"
 git branch
-echo "--------------------------------------------------"
-# default=""
+echo ""
 default=$(git symbolic-ref -q --short HEAD)
-read -p "Type the branch [$default]: " VAR
+read -p "Type branch [$default]: " VAR
 : ${VAR:=$default}
 if [ "$VAR" != "" ]
 then
@@ -28,15 +28,16 @@ then
    echo "Commands:"
    echo "$ git pull origin $VAR"
    echo "$ git push origin $VAR"
+   echo ""
    echo -n "Enter to confirm: "
    read CONFIRM
    echo ""
-
    git pull origin "$VAR";
    git push origin "$VAR";
 else
    echo "Invalid parameter. Nothing to do."
 fi
+echo ""
 echo -n "Enter to return to the menu: "
 read CLOSE
 clear

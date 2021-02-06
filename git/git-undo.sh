@@ -19,10 +19,11 @@
 # git checkout . -- Desfaz alterações em arquivos versionados. Iguala ao último commit
 # git clean -fd  --Remove arquivos e diretórios não versionados
 #
-echo "UNDO"
-echo "--------------------------------------------------"
+echo "----------------------------------------"
+echo " UNDO"
+echo "----------------------------------------"
 git status
-echo "--------------------------------------------------"
+echo ""
 echo -n "Discard all changes? (y/n): "
 read UNDO
 
@@ -32,6 +33,7 @@ then
    echo "Commands:"
    echo "$ git checkout ."
    echo "$ git clean -fd"
+   echo ""
    echo -n "Enter to confirm: "
    read CONFIRM
    echo ""
@@ -42,6 +44,7 @@ then
 else
    echo "Invalid parameter. Nothing to do."
 fi
+echo ""
 echo -n "Enter to return to the menu: "
 read CLOSE
 clear

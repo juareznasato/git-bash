@@ -14,31 +14,40 @@
 # --> COMMAND <--
 # $ sh menu.sh
 #
-echo ""
-echo "### G I T ###"
+echo "#######################################"
+echo "#                                     #"
+echo "#          #####   #   ######         #"
+echo "#         #        #     #            #"
+echo "#         # ####   #     #            #"
+echo "#         #    #   #     #            #"
+echo "#          ####    #     #            #"
+echo "#                                     #"
+echo "#######################################"
 echo ""
 echo " v = version control"
 echo " b = branch"
 echo " t = tag"
 echo " x = exit"
 echo ""
-echo -n " Type the option: "
+echo -n " Type option: "
 read OPTION
-
+tput reset
 if [ "$OPTION" = "v" ]
 then
-   echo ""
-   echo "VERSION CONTROL"
-   echo " u  = undo"
-   echo " c  = commit"
-   echo " r  = rollback"
-   echo " l  = pull"
-   echo " p  = push"
+   echo "---------------------------------------"
+   echo " VERSION CONTROL"
+   echo "---------------------------------------"
+   echo " u = undo"
+   echo " c = commit"
+   echo " r = rollback"
+   echo " l = pull"
+   echo " p = push"
    echo " h = commit + push"
    echo " x = exit"
    echo ""
-   echo -n " Type the option: "
+   echo -n " Type option: "
    read VERSION_CONTROL
+   tput reset
    if [ "$VERSION_CONTROL" = "u" ]
    then
       echo ""
@@ -67,9 +76,20 @@ then
    if [ "$VERSION_CONTROL" = "h" ]
    then
       echo ""
-      echo "COMMIT + PUSH"
-      ./git/git-commit.sh
-      ./git/git-push.sh
+      echo "---------------------------------------"
+      echo " COMMIT + PUSH"
+      echo "---------------------------------------"
+      # Bloquear o commit na branch main/master
+      BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+      if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
+         echo "You can't commit directly to main/master branch"
+         echo -n "Enter to exit: "
+         read CLOSE
+      else
+         ./git/git-commit.sh
+         tput reset
+         ./git/git-push.sh
+      fi
    fi
    if [ "$OPTION" = "x" ]
    then
@@ -80,15 +100,18 @@ fi
 if [ "$OPTION" = "b" ]
 then
    echo ""
-   echo "BRANCH"
+   echo "---------------------------------------"
+   echo " BRANCH"
+   echo "---------------------------------------"
    echo " n = new-branch"
    echo " d = delete-branch"
    echo " s = switch-branch"
    echo " m = merge"
    echo " x = exit"
    echo ""
-   echo -n " Type the option: "
+   echo -n " Type option: "
    read BRANCH
+   tput reset
    if [ "$BRANCH" = "n" ]
    then
       echo ""
@@ -118,13 +141,16 @@ fi
 if [ "$OPTION" = "t" ]
 then
    echo ""
-   echo "TAG"
+   echo "---------------------------------------"
+   echo " TAG"
+   echo "---------------------------------------"
    echo " n = new-tag"
    echo " d = delete-tag"
    echo " x = exit"
    echo ""
-   echo -n " Type the option: "
+   echo -n " Type option: "
    read TAG
+   tput reset
    if [ "$TAG" = "n" ]
    then
       echo ""

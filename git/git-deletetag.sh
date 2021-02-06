@@ -15,12 +15,12 @@
 # $ sh git-deletetag.sh
 # Faz a exclusão remota e depois local
 #
+echo "----------------------------------------"
 echo "DELETE-TAG"
-echo "--------------------------------------------------"
+echo "----------------------------------------"
 git tag
-echo "--------------------------------------------------"
-
-echo -n "Type the tag: "
+echo ""
+echo -n "Type tag: "
 read TAG
 
 if [ "$TAG" != "" ]
@@ -29,6 +29,7 @@ then
    echo "Commands:"
    echo "$ git push origin $TAG --delete"
    echo "$ git tag -d $TAG"
+   echo ""
    echo -n "Enter to confirm: "
    read CONFIRM
    echo ""
@@ -41,6 +42,7 @@ then
 else
    echo "Invalid parameter. Nothing to do."
 fi
+echo ""
 echo -n "Enter to return to the menu: "
 read CLOSE
 clear

@@ -14,20 +14,20 @@
 # --> COMMAND <--
 # $ sh git-commit.sh
 #
-echo "COMMIT"
-echo "--------------------------------------------------"
+echo "----------------------------------------"
+echo " COMMIT"
+echo "----------------------------------------"
 git status
-echo "--------------------------------------------------"
-
+echo ""
 echo -n "Message: "
 read MESSAGE
-
 if [ "$MESSAGE" != "" ]
 then
    echo ""
    echo "Commands:"
    echo "$ git add ."
    echo "$ git commit -m $MESSAGE"
+   echo ""
    echo -n "Enter to continue: "
    read CONFIRM
    echo ""
@@ -36,6 +36,7 @@ then
 else
    echo "Invalid parameter. Nothing to do."
 fi
+echo ""
 echo -n "Enter to continue: "
 read CLOSE
 
