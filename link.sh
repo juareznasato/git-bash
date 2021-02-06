@@ -1,4 +1,4 @@
 #!/bin/bash
-ln -s /home/juarez/deposito/workspace/ws-vscode/git-bash/git git
+ln -s /home/juarez/deposito/git git
 # unlink git
 echo Fim.
