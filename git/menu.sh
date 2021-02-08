@@ -14,15 +14,26 @@
 # --> COMMAND <--
 # $ sh menu.sh
 #
-echo "#######################################"
-echo "#                                     #"
-echo "#          #####   #   ######         #"
-echo "#         #        #     #            #"
-echo "#         # ####   #     #            #"
-echo "#         #    #   #     #            #"
-echo "#          ####    #     #            #"
-echo "#                                     #"
-echo "#######################################"
+echoc() {
+    RED="\033[0;31m"
+    GREEN="\033[0;32m"
+    YELLOW="\033[1;33m"
+    CYAN="\033[1;36m"
+    # ... ADD MORE COLORS
+    NC="\033[0m" # No Color
+
+    printf "${!1}${2} ${NC}\n"
+}
+
+echoc "CYAN" "#########################################"
+echoc "CYAN" "#                                       #"
+echoc "CYAN" "#          #####    #   #######         #"
+echoc "CYAN" "#         #         #      #            #"
+echoc "CYAN" "#         # #####   #      #            #"
+echoc "CYAN" "#         #     #   #      #            #"
+echoc "CYAN" "#          #####    #      #            #"
+echoc "CYAN" "#                                       #"
+echoc "CYAN" "#########################################"
 echo ""
 echo " v = version control"
 echo " b = branch"
@@ -82,11 +93,11 @@ then
       # Bloquear o commit na branch main/master
       BRANCH="$(git rev-parse --abbrev-ref HEAD)"
       if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
-         echo "#######################################################"
-         echo "#                                                     #"
-         echo "# You shouldn't commit directly to main/master branch #"
-         echo "#                                                     #"
-         echo "#######################################################"
+         echoc "YELLOW" "#######################################################"
+         echoc "YELLOW" "#                                                     #"
+         echoc "YELLOW" "# You shouldn't commit directly to main/master branch #"
+         echoc "YELLOW" "#                                                     #"
+         echoc "YELLOW" "#######################################################"
          echo ""
          echo -n "Are you sure? (y/n): "
          read CONFIRM
