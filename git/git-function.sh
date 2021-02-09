@@ -12,9 +12,9 @@
 ######################################################################
 #
 function gitCommit() {
-   echo "----------------------------------------"
-   echo " COMMIT"
-   echo "----------------------------------------"
+   echoc "CYAN" "----------------------------------------"
+   echoc "CYAN" " COMMIT"
+   echoc "CYAN" "----------------------------------------"
    git status
    echo ""
    echo -n "Message: "
@@ -39,9 +39,9 @@ function gitCommit() {
 }
 
 function gitDeleteBranch() {
-   echo "----------------------------------------"
-   echo " DELETE-BRANCH"
-   echo "----------------------------------------"
+   echoc "CYAN" "----------------------------------------"
+   echoc "CYAN" " DELETE-BRANCH"
+   echoc "CYAN" "----------------------------------------"
    git branch
    echo ""
    echo -n "Type branch: "
@@ -79,9 +79,9 @@ function gitDeleteBranch() {
 }
 
 function gitDeleteTag() {
-   echo "----------------------------------------"
-   echo "DELETE-TAG"
-   echo "----------------------------------------"
+   echoc "CYAN" "----------------------------------------"
+   echoc "CYAN" "DELETE-TAG"
+   echoc "CYAN" "----------------------------------------"
    git tag
    echo ""
    echo -n "Type tag: "
@@ -112,9 +112,9 @@ function gitDeleteTag() {
 }
 
 function gitMerge() {
-   echo "----------------------------------------"
-   echo " MERGE"
-   echo "----------------------------------------"
+   echoc "CYAN" "----------------------------------------"
+   echoc "CYAN" " MERGE"
+   echoc "CYAN" "----------------------------------------"
    git branch
    echo ""
    echo -n "Type branch (from): "
@@ -161,9 +161,9 @@ function gitMerge() {
 }
 
 function gitNewBranch() {
-   echo "----------------------------------------"
-   echo " NEW-BRANCH"
-   echo "----------------------------------------"
+   echoc "CYAN" "----------------------------------------"
+   echoc "CYAN" " NEW-BRANCH"
+   echoc "CYAN" "----------------------------------------"
    git branch
    echo ""
    echo -n "Type branch: "
@@ -192,9 +192,9 @@ function gitNewBranch() {
 }
 
 function gitNewTag() {
-   echo "----------------------------------------"
-   echo " NEW-TAG"
-   echo "----------------------------------------"
+   echoc "CYAN" "----------------------------------------"
+   echoc "CYAN" " NEW-TAG"
+   echoc "CYAN" "----------------------------------------"
    git tag
    echo ""
    echo -n "Type tag: "
@@ -225,9 +225,9 @@ function gitNewTag() {
 }
 
 function gitPull() {
-   echo "----------------------------------------"
-   echo " PULL"
-   echo "----------------------------------------"
+   echoc "CYAN" "----------------------------------------"
+   echoc "CYAN" " PULL"
+   echoc "CYAN" "----------------------------------------"
    git branch
    echo ""
    # default=""
@@ -254,9 +254,9 @@ function gitPull() {
 }
 
 function gitPush() {
-   echo "----------------------------------------"
-   echo " PUSH"
-   echo "----------------------------------------"
+   echoc "CYAN" "----------------------------------------"
+   echoc "CYAN" " PUSH"
+   echoc "CYAN" "----------------------------------------"
    git branch
    echo ""
    default=$(git symbolic-ref -q --short HEAD)
@@ -283,9 +283,9 @@ function gitPush() {
 }
 
 function gitRollback() {
-   echo "----------------------------------------"
-   echo " ROLLBACK"
-   echo "----------------------------------------"
+   echoc "CYAN" "----------------------------------------"
+   echoc "CYAN" " ROLLBACK"
+   echoc "CYAN" "----------------------------------------"
    git log --pretty=oneline
    echo ""
    echo -n "Do you want to delete the last commit? (y/n): "
@@ -312,9 +312,9 @@ function gitRollback() {
 }
 
 function gitSwitchBranch() {
-   echo "----------------------------------------"
-   echo " SWITCH-BRANCH"
-   echo "----------------------------------------"
+   echoc "CYAN" "----------------------------------------"
+   echoc "CYAN" " SWITCH-BRANCH"
+   echoc "CYAN" "----------------------------------------"
    git branch
    echo ""
    echo -n "Type branch: "
@@ -341,9 +341,9 @@ function gitSwitchBranch() {
 }
 
 function gitUndo() {
-   echo "----------------------------------------"
-   echo " UNDO"
-   echo "----------------------------------------"
+   echoc "CYAN" "----------------------------------------"
+   echoc "CYAN" " UNDO"
+   echoc "CYAN" "----------------------------------------"
    git status
    echo ""
    echo -n "Discard all changes? (y/n): "

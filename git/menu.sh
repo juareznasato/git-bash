@@ -35,9 +35,9 @@ function gitMenu() {
    read OPTION
    tput reset
    if [ "$OPTION" = "v" ]; then
-      echo "---------------------------------------"
-      echo " VERSION CONTROL"
-      echo "---------------------------------------"
+      echoc "CYAN" "---------------------------------------"
+      echoc "CYAN" " VERSION CONTROL"
+      echoc "CYAN" "---------------------------------------"
       echo " u = undo"
       echo " c = commit"
       echo " r = rollback"
@@ -72,7 +72,7 @@ function gitMenu() {
                echo -n "Enter to return to the menu: "
                read CLOSE
                tput reset
-               ./git/menu.sh
+               gitMenu
             fi
          else
             gitCommit
@@ -92,9 +92,9 @@ function gitMenu() {
       fi
       if [ "$VERSION_CONTROL" = "h" ]; then
          echo ""
-         echo "---------------------------------------"
-         echo " COMMIT + PUSH"
-         echo "---------------------------------------"
+         echoc "CYAN" "---------------------------------------"
+         echoc "CYAN" " COMMIT + PUSH"
+         echoc "CYAN" "---------------------------------------"
          # Bloquear o commit na branch main/master
          BRANCH="$(git rev-parse --abbrev-ref HEAD)"
          if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
@@ -108,18 +108,18 @@ function gitMenu() {
             read CONFIRM
             if [ "$CONFIRM" = "y" ]; then
                gitCommit
-               tput reset
+               # tput reset
                gitPush
             else
                echo ""
                echo -n "Enter to return to the menu: "
                read CLOSE
-               tput reset
-               ./git/menu.sh
+               # tput reset
+               gitMenu
             fi
          else
             gitCommit
-            tput reset
+            # tput reset
             gitPush
          fi
       fi
@@ -130,9 +130,9 @@ function gitMenu() {
 
    if [ "$OPTION" = "b" ]; then
       echo ""
-      echo "---------------------------------------"
-      echo " BRANCH"
-      echo "---------------------------------------"
+      echoc "CYAN" "---------------------------------------"
+      echoc "CYAN" " BRANCH"
+      echoc "CYAN" "---------------------------------------"
       echo " n = new-branch"
       echo " d = delete-branch"
       echo " s = switch-branch"
@@ -165,9 +165,9 @@ function gitMenu() {
 
    if [ "$OPTION" = "t" ]; then
       echo ""
-      echo "---------------------------------------"
-      echo " TAG"
-      echo "---------------------------------------"
+      echoc "CYAN" "---------------------------------------"
+      echoc "CYAN" " TAG"
+      echoc "CYAN" "---------------------------------------"
       echo " n = new-tag"
       echo " d = delete-tag"
       echo " x = exit"
