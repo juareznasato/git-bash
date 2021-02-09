@@ -19,21 +19,22 @@ echoc() {
     GREEN="\033[0;32m"
     YELLOW="\033[1;33m"
     CYAN="\033[1;36m"
+    LIGHT_GRAY="\e[37m"
     # ... ADD MORE COLORS
     NC="\033[0m" # No Color
 
     printf "${!1}${2} ${NC}\n"
 }
 
-echoc "CYAN" "#########################################"
-echoc "CYAN" "#                                       #"
-echoc "CYAN" "#          #####    #   #######         #"
-echoc "CYAN" "#         #         #      #            #"
-echoc "CYAN" "#         # #####   #      #            #"
-echoc "CYAN" "#         #     #   #      #            #"
-echoc "CYAN" "#          #####    #      #            #"
-echoc "CYAN" "#                                       #"
-echoc "CYAN" "#########################################"
+echoc "LIGHT_GRAY" "#########################################"
+echoc "LIGHT_GRAY" "#                                       #"
+echoc "LIGHT_GRAY" "#          #####    #   #######         #"
+echoc "LIGHT_GRAY" "#         #         #      #            #"
+echoc "LIGHT_GRAY" "#         # #####   #      #            #"
+echoc "LIGHT_GRAY" "#         #     #   #      #            #"
+echoc "LIGHT_GRAY" "#          #####    #      #            #"
+echoc "LIGHT_GRAY" "#                                       #"
+echoc "LIGHT_GRAY" "#########################################"
 echo ""
 echo " v = version control"
 echo " b = branch"
@@ -66,8 +67,30 @@ then
    fi
    if [ "$VERSION_CONTROL" = "c" ]
    then
-      echo ""
-      ./git/git-commit.sh
+      # Bloquear o commit na branch main/master
+      BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+      if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
+         echoc "YELLOW" "#######################################################"
+         echoc "YELLOW" "#                                                     #"
+         echoc "YELLOW" "# You shouldn't commit directly to main/master branch #"
+         echoc "YELLOW" "#                                                     #"
+         echoc "YELLOW" "#######################################################"
+         echo ""
+         echo -n "Are you sure? (y/n): "
+         read CONFIRM
+         if [ "$CONFIRM" = "y" ]
+         then
+            ./git/git-commit.sh
+         else
+            echo ""
+            echo -n "Enter to return to the menu: "
+            read CLOSE
+            tput reset
+            ./git/menu.sh
+         fi
+      else
+         ./git/git-commit.sh
+      fi
    fi
    if [ "$VERSION_CONTROL" = "r" ]
    then
