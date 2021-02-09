@@ -1,5 +1,16 @@
 #!/bin/bash
 #
+######################################################################
+#       SCRIPT FUNCTION: Git Commands                                #
+#------------------------------------------------------------------- #
+#                                                                    #
+#       AUTHOR:  Juarez Nasato                                       #
+#       EMAIL:   juareznasato@gmail.com                              #
+#       CREATED: 02/01/2021                                          #
+#       VERSION: 2.0.0                                               #
+#                                                                    #
+######################################################################
+#
 function gitCommit() {
    echo "----------------------------------------"
    echo " COMMIT"
@@ -24,7 +35,7 @@ function gitCommit() {
    fi
    echo ""
    echo -n "Enter to continue: "
-   read CLOSE
+   read MENU
 }
 
 function gitDeleteBranch() {
@@ -63,9 +74,8 @@ function gitDeleteBranch() {
    fi
    echo ""
    echo -n "Enter to return to the menu: "
-   read CLOSE
-   clear
-   ./git/menu.sh
+   read MENU
+   gitMenu
 }
 
 function gitDeleteTag() {
@@ -97,9 +107,8 @@ function gitDeleteTag() {
    fi
    echo ""
    echo -n "Enter to return to the menu: "
-   read CLOSE
-   clear
-   ./git/menu.sh
+   read MENU
+   gitMenu
 }
 
 function gitMerge() {
@@ -147,9 +156,8 @@ function gitMerge() {
    fi
    echo ""
    echo -n "Enter to return to the menu: "
-   read CLOSE
-   clear
-   ./git/menu.sh
+   read MENU
+   gitMenu
 }
 
 function gitNewBranch() {
@@ -179,9 +187,8 @@ function gitNewBranch() {
    fi
    echo ""
    echo -n "Enter to return to the menu: "
-   read CLOSE
-   clear
-   ./git/menu.sh
+   read MENU
+   gitMenu
 }
 
 function gitNewTag() {
@@ -213,9 +220,8 @@ function gitNewTag() {
    fi
    echo ""
    echo -n "Enter to return to the menu: "
-   read CLOSE
-   clear
-   ./git/menu.sh
+   read MENU
+   gitMenu
 }
 
 function gitPull() {
@@ -243,9 +249,8 @@ function gitPull() {
    fi
    echo ""
    echo -n "Enter to return to the menu: "
-   read CLOSE
-   clear
-   ./git/menu.sh
+   read MENU
+   gitMenu
 }
 
 function gitPush() {
@@ -273,9 +278,8 @@ function gitPush() {
    fi
    echo ""
    echo -n "Enter to return to the menu: "
-   read CLOSE
-   clear
-   ./git/menu.sh
+   read MENU
+   gitMenu
 }
 
 function gitRollback() {
@@ -303,9 +307,8 @@ function gitRollback() {
    fi
    echo ""
    echo -n "Enter to return to the menu: "
-   read CLOSE
-   clear
-   ./git/menu.sh
+   read MENU
+   gitMenu
 }
 
 function gitSwitchBranch() {
@@ -333,9 +336,8 @@ function gitSwitchBranch() {
    fi
    echo ""
    echo -n "Enter to return to the menu: "
-   read CLOSE
-   clear
-   ./git/menu.sh
+   read MENU
+   gitMenu
 }
 
 function gitUndo() {
@@ -365,7 +367,6 @@ function gitUndo() {
    fi
    echo ""
    echo -n "Enter to return to the menu: "
-   read CLOSE
-   clear
-   ./git/menu.sh
+   read MENU
+   gitMenu
 }
