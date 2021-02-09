@@ -14,7 +14,8 @@
 # --> COMMAND <--
 # $ sh menu.sh
 #
-source ./git/function.sh
+source ./git/git-function.sh
+source ./git/util.sh
 echoc "LIGHT_GRAY" "#########################################"
 echoc "LIGHT_GRAY" "#                                       #"
 echoc "LIGHT_GRAY" "#          #####    #   #######         #"
@@ -52,7 +53,7 @@ then
    if [ "$VERSION_CONTROL" = "u" ]
    then
       echo ""
-      ./git/git-undo.sh
+      gitUndo
    fi
    if [ "$VERSION_CONTROL" = "c" ]
    then
@@ -69,7 +70,7 @@ then
          read CONFIRM
          if [ "$CONFIRM" = "y" ]
          then
-            ./git/git-commit.sh
+            gitCommit
          else
             echo ""
             echo -n "Enter to return to the menu: "
@@ -78,23 +79,23 @@ then
             ./git/menu.sh
          fi
       else
-         ./git/git-commit.sh
+         gitCommit
       fi
    fi
    if [ "$VERSION_CONTROL" = "r" ]
    then
       echo ""
-      ./git/git-rollback.sh
+      gitRollback
    fi
    if [ "$VERSION_CONTROL" = "l" ]
    then
       echo ""
-      ./git/git-pull.sh
+      gitPull
    fi
    if [ "$VERSION_CONTROL" = "p" ]
    then
       echo ""
-      ./git/git-push.sh
+      gitPush
    fi
    if [ "$VERSION_CONTROL" = "h" ]
    then
@@ -115,9 +116,9 @@ then
          read CONFIRM
          if [ "$CONFIRM" = "y" ]
          then
-            ./git/git-commit.sh
+            gitCommit
             tput reset
-            ./git/git-push.sh
+            gitPush
          else
             echo ""
             echo -n "Enter to return to the menu: "
@@ -126,9 +127,9 @@ then
             ./git/menu.sh
          fi
       else
-         ./git/git-commit.sh
+         gitCommit
          tput reset
-         ./git/git-push.sh
+         gitPush
       fi
    fi
    if [ "$OPTION" = "x" ]
@@ -155,22 +156,22 @@ then
    if [ "$BRANCH" = "n" ]
    then
       echo ""
-      ./git/git-newbranch.sh
+      gitNewbranch
    fi
    if [ "$BRANCH" = "d" ]
    then
       echo ""
-      ./git/git-deletebranch.sh
+      gitDeletebranch
    fi
    if [ "$BRANCH" = "s" ]
    then
       echo ""
-      ./git/git-switchbranch.sh
+      gitSwitchbranch
    fi
    if [ "$BRANCH" = "m" ]
    then
       echo ""
-      ./git/git-merge.sh
+      gitMerge
    fi
    if [ "$OPTION" = "x" ]
    then
@@ -194,12 +195,12 @@ then
    if [ "$TAG" = "n" ]
    then
       echo ""
-      ./git/git-newtag.sh
+      gitNewtag
    fi
    if [ "$TAG" = "d" ]
    then
       echo ""
-      ./git/git-deletetag.sh
+      gitDeleteTag
    fi
    if [ "$OPTION" = "x" ]
    then

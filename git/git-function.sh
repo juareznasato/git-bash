@@ -1,0 +1,371 @@
+#!/bin/bash
+#
+function gitCommit() {
+   echo "----------------------------------------"
+   echo " COMMIT"
+   echo "----------------------------------------"
+   git status
+   echo ""
+   echo -n "Message: "
+   read MESSAGE
+   if [ "$MESSAGE" != "" ]; then
+      echo ""
+      echo "Commands:"
+      echo "$ git add ."
+      echo "$ git commit -m $MESSAGE"
+      echo ""
+      echo -n "Enter to continue: "
+      read CONFIRM
+      echo ""
+      git add .
+      git commit -m "$MESSAGE"
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to continue: "
+   read CLOSE
+}
+
+function gitDeleteBranch() {
+   echo "----------------------------------------"
+   echo " DELETE-BRANCH"
+   echo "----------------------------------------"
+   git branch
+   echo ""
+   echo -n "Type branch: "
+   read BRANCH
+
+   default="main"
+   read -p "switch to main branch [$default]: " MAIN_BRANCH
+   : ${MAIN_BRANCH:=$default}
+
+   if [[ ("$BRANCH" != "") && ("$BRANCH" != "main") && ("$BRANCH" != "master") && ("$MAIN_BRANCH" != "") ]]; then
+      echo ""
+      echo "Commands:"
+      echo "$ git checkout $MAIN_BRANCH"
+      echo "$ git push origin $BRANCH --delete"
+      echo "$ git branch -D $BRANCH"
+      echo ""
+      echo -n "Enter to continue: "
+      read CONFIRM
+      echo ""
+
+      # Posicionar na branch main para liberar a branch que será excluida
+      git checkout "$MAIN_BRANCH"
+      # Deletar a branch remota
+      git push origin "$BRANCH" --delete
+      # Deletar a branch local
+      git branch -D "$BRANCH"
+      echo "Branch $BRANCH deleted from remote and local repository."
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read CLOSE
+   clear
+   ./git/menu.sh
+}
+
+function gitDeleteTag() {
+   echo "----------------------------------------"
+   echo "DELETE-TAG"
+   echo "----------------------------------------"
+   git tag
+   echo ""
+   echo -n "Type tag: "
+   read TAG
+
+   if [ "$TAG" != "" ]; then
+      echo ""
+      echo "Commands:"
+      echo "$ git push origin $TAG --delete"
+      echo "$ git tag -d $TAG"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+
+      # Deletar a tag remota
+      git push origin "$TAG" --delete
+      # Deletar a tag local
+      git tag -d "$TAG"
+      echo "Tag $TAG deleted from remote and local repository."
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read CLOSE
+   clear
+   ./git/menu.sh
+}
+
+function gitMerge() {
+   echo "----------------------------------------"
+   echo " MERGE"
+   echo "----------------------------------------"
+   git branch
+   echo ""
+   echo -n "Type branch (from): "
+   read FROM
+   echo -n "Type branch (to): "
+   read TO
+   if [ "$TO" != "" ]; then
+      echo ""
+      echo "Commands:"
+      echo "$ git checkout $TO"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM_1
+      echo ""
+      # Posicionar na branch que vai receber o merge
+      git checkout "$TO"
+      if [ "$FROM" != "" ]; then
+         echo ""
+         echo "Commands:"
+         echo "$ git merge $FROM"
+         read CONFIRM_2
+         echo ""
+         echo -n "Enter to confirm: "
+         echo ""
+         git merge "$FROM"
+         # Para finalizar é necessário realizar um push na branch de destino
+         # echo -n "Do you want to push to the target branch? (y/n): "
+         #read PUSH
+         #if [ "$PUSH" = "y" ]
+         #then
+         echo ""
+         ./git/git-push.sh
+         #fi
+      else
+         echo "Invalid parameter. Nothing to do."
+      fi
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read CLOSE
+   clear
+   ./git/menu.sh
+}
+
+function gitNewBranch() {
+   echo "----------------------------------------"
+   echo " NEW-BRANCH"
+   echo "----------------------------------------"
+   git branch
+   echo ""
+   echo -n "Type branch: "
+   read BRANCH
+
+   if [ "$BRANCH" != "" ]; then
+      echo ""
+      echo "Commands:"
+      echo "$ git checkout -b $BRANCH"
+      echo "$ git push origin $BRANCH"
+      echo ""
+      echo -n "Enter to continue: "
+      read CONFIRM
+      echo ""
+
+      git checkout -b "$BRANCH"
+      git push origin "$BRANCH"
+      echo "Branch $BRANCH created."
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read CLOSE
+   clear
+   ./git/menu.sh
+}
+
+function gitNewTag() {
+   echo "----------------------------------------"
+   echo " NEW-TAG"
+   echo "----------------------------------------"
+   git tag
+   echo ""
+   echo -n "Type tag: "
+   read TAG
+   echo -n "Message: "
+   read MESSAGE
+
+   if [[ ("$TAG" != "") && ("$MESSAGE" != "") ]]; then
+      echo ""
+      echo "Commands:"
+      echo "$ git tag -a $TAG -m $MESSAGE"
+      echo "$ git push origin $TAG"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+
+      git tag -a "$TAG" -m "$MESSAGE"
+      git push origin "$TAG"
+      echo "Tag $TAG created."
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read CLOSE
+   clear
+   ./git/menu.sh
+}
+
+function gitPull() {
+   echo "----------------------------------------"
+   echo " PULL"
+   echo "----------------------------------------"
+   git branch
+   echo ""
+   # default=""
+   default=$(git symbolic-ref -q --short HEAD)
+   read -p "Type branch [$default]: " VAR
+   : ${VAR:=$default}
+   if [ "$VAR" != "" ]; then
+      echo ""
+      echo "Commands:"
+      echo "$ git pull origin $VAR"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+
+      git pull origin "$VAR"
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read CLOSE
+   clear
+   ./git/menu.sh
+}
+
+function gitPush() {
+   echo "----------------------------------------"
+   echo " PUSH"
+   echo "----------------------------------------"
+   git branch
+   echo ""
+   default=$(git symbolic-ref -q --short HEAD)
+   read -p "Type branch [$default]: " VAR
+   : ${VAR:=$default}
+   if [ "$VAR" != "" ]; then
+      echo ""
+      echo "Commands:"
+      echo "$ git pull origin $VAR"
+      echo "$ git push origin $VAR"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+      git pull origin "$VAR"
+      git push origin "$VAR"
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read CLOSE
+   clear
+   ./git/menu.sh
+}
+
+function gitRollback() {
+   echo "----------------------------------------"
+   echo " ROLLBACK"
+   echo "----------------------------------------"
+   git log --pretty=oneline
+   echo ""
+   echo -n "Do you want to delete the last commit? (y/n): "
+   read VAR
+
+   if [ "$VAR" = "y" ]; then
+      echo ""
+      echo "Commands:"
+      echo "$ git reset HEAD~1 --hard"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+
+      git reset HEAD~1 --hard
+      echo "Last commit deleted."
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read CLOSE
+   clear
+   ./git/menu.sh
+}
+
+function gitSwitchBranch() {
+   echo "----------------------------------------"
+   echo " SWITCH-BRANCH"
+   echo "----------------------------------------"
+   git branch
+   echo ""
+   echo -n "Type branch: "
+   read BRANCH
+
+   if [ "$BRANCH" != "" ]; then
+      echo ""
+      echo "Commands:"
+      echo "$ git checkout $BRANCH"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+
+      git checkout "$BRANCH"
+      # echo "Switched to branch $BRANCH."
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read CLOSE
+   clear
+   ./git/menu.sh
+}
+
+function gitUndo() {
+   echo "----------------------------------------"
+   echo " UNDO"
+   echo "----------------------------------------"
+   git status
+   echo ""
+   echo -n "Discard all changes? (y/n): "
+   read UNDO
+
+   if [ "$UNDO" = "y" ]; then
+      echo ""
+      echo "Commands:"
+      echo "$ git checkout ."
+      echo "$ git clean -fd"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+
+      git checkout .
+      git clean -fd
+      echo "Discarded changes."
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read CLOSE
+   clear
+   ./git/menu.sh
+}
