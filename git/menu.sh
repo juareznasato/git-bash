@@ -75,7 +75,7 @@ function gitMenu() {
          gitPush
       fi
       if [ "$OPTION" = "x" ]; then
-         echo "Exiting..."
+         exit
       fi
    fi
 
@@ -110,7 +110,7 @@ function gitMenu() {
          gitMerge
       fi
       if [ "$OPTION" = "x" ]; then
-         echo "Exiting..."
+         exit
       fi
    fi
 
@@ -128,19 +128,19 @@ function gitMenu() {
       fnClear
       if [ "$TAG" = "n" ]; then
          echo ""
-         gitNewtag
+         gitNewTag
       fi
       if [ "$TAG" = "d" ]; then
          echo ""
          gitDeleteTag
       fi
       if [ "$OPTION" = "x" ]; then
-         echo "Exiting..."
+         exit
       fi
    fi
 
    if [ "$OPTION" = "x" ]; then
-      echo "Exiting..."
+      exit
    fi
 }
 
