@@ -240,13 +240,14 @@ function gitMerge() {
          echo ""
          fnEcho "CYAN" "Commands:"
          fnEcho "CYAN" "$ git merge $FROM"
+         fnEcho "CYAN" "$ git push origin $TO"
          echo ""
          echo -n "Enter to confirm: "
          read CONFIRM_2
          echo ""
          git merge "$FROM"
+         git push origin "$TO"
          echo ""
-         gitPush
       else
          echo "Invalid parameter. Nothing to do."
       fi
