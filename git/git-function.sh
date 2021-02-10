@@ -226,31 +226,21 @@ function gitMerge() {
    read FROM
    echo -n "Type branch (to): "
    read TO
-   if [ "$TO" != "" ]; then
+   if [[ ("$FROM" != "") && ("$TO" != "") ]]; then
       echo ""
       fnEcho "CYAN" "Commands:"
       fnEcho "CYAN" "$ git checkout $TO"
+      fnEcho "CYAN" "$ git merge $FROM"
+      fnEcho "CYAN" "$ git push origin $TO"
       echo ""
       echo -n "Enter to confirm: "
-      read CONFIRM_1
+      read CONFIRM
       echo ""
       # Posicionar na branch que vai receber o merge
       git checkout "$TO"
-      if [ "$FROM" != "" ]; then
-         echo ""
-         fnEcho "CYAN" "Commands:"
-         fnEcho "CYAN" "$ git merge $FROM"
-         fnEcho "CYAN" "$ git push origin $TO"
-         echo ""
-         echo -n "Enter to confirm: "
-         read CONFIRM_2
-         echo ""
-         git merge "$FROM"
-         git push origin "$TO"
-         echo ""
-      else
-         echo "Invalid parameter. Nothing to do."
-      fi
+      git merge "$FROM"
+      git push origin "$TO"
+      echo ""
    else
       echo "Invalid parameter. Nothing to do."
    fi
