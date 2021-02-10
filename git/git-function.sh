@@ -12,17 +12,17 @@
 ######################################################################
 #
 function gitCommit() {
-   tput reset
-   echoc "CYAN" "----------------------------------------"
-   echoc "CYAN" " COMMIT"
-   echoc "CYAN" "----------------------------------------"
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " COMMIT"
+   fnEcho "CYAN" "----------------------------------------"
    BRANCH="$(fnCurrentBranch)"
    if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
-      echoc "YELLOW" "#######################################################"
-      echoc "YELLOW" "#                                                     #"
-      echoc "YELLOW" "# You shouldn't commit directly to main/master branch #"
-      echoc "YELLOW" "#                                                     #"
-      echoc "YELLOW" "#######################################################"
+      fnEcho "YELLOW" "#######################################################"
+      fnEcho "YELLOW" "#                                                     #"
+      fnEcho "YELLOW" "# You shouldn't commit directly to main/master branch #"
+      fnEcho "YELLOW" "#                                                     #"
+      fnEcho "YELLOW" "#######################################################"
       echo ""
       echo -n "Are you sure? (y/n): "
       read CONFIRM
@@ -37,9 +37,9 @@ function gitCommit() {
    read MESSAGE
    if [ "$MESSAGE" != "" ]; then
       echo ""
-      echoc "CYAN" "Commands:"
-      echoc "CYAN" "$ git add ."
-      echoc "CYAN" "$ git commit -m $MESSAGE"
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git add ."
+      fnEcho "CYAN" "$ git commit -m $MESSAGE"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -55,10 +55,10 @@ function gitCommit() {
 }
 
 function gitDeleteBranch() {
-   tput reset
-   echoc "CYAN" "----------------------------------------"
-   echoc "CYAN" " DELETE-BRANCH"
-   echoc "CYAN" "----------------------------------------"
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " DELETE-BRANCH"
+   fnEcho "CYAN" "----------------------------------------"
    git branch
    echo ""
    echo -n "Type branch: "
@@ -70,10 +70,10 @@ function gitDeleteBranch() {
 
    if [[ ("$BRANCH" != "") && ("$BRANCH" != "main") && ("$BRANCH" != "master") && ("$MAIN_BRANCH" != "") ]]; then
       echo ""
-      echoc "CYAN" "Commands:"
-      echoc "CYAN" "$ git checkout $MAIN_BRANCH"
-      echoc "CYAN" "$ git push origin $BRANCH --delete"
-      echoc "CYAN" "$ git branch -D $BRANCH"
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git checkout $MAIN_BRANCH"
+      fnEcho "CYAN" "$ git push origin $BRANCH --delete"
+      fnEcho "CYAN" "$ git branch -D $BRANCH"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -96,10 +96,10 @@ function gitDeleteBranch() {
 }
 
 function gitDeleteTag() {
-   tput reset
-   echoc "CYAN" "----------------------------------------"
-   echoc "CYAN" "DELETE-TAG"
-   echoc "CYAN" "----------------------------------------"
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" "DELETE-TAG"
+   fnEcho "CYAN" "----------------------------------------"
    git tag
    echo ""
    echo -n "Type tag: "
@@ -107,9 +107,9 @@ function gitDeleteTag() {
 
    if [ "$TAG" != "" ]; then
       echo ""
-      echoc "CYAN" "Commands:"
-      echoc "CYAN" "$ git push origin $TAG --delete"
-      echoc "CYAN" "$ git tag -d $TAG"
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git push origin $TAG --delete"
+      fnEcho "CYAN" "$ git tag -d $TAG"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -130,10 +130,10 @@ function gitDeleteTag() {
 }
 
 function gitMerge() {
-   tput reset
-   echoc "CYAN" "----------------------------------------"
-   echoc "CYAN" " MERGE"
-   echoc "CYAN" "----------------------------------------"
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " MERGE"
+   fnEcho "CYAN" "----------------------------------------"
    git branch
    echo ""
    echo -n "Type branch (from): "
@@ -142,8 +142,8 @@ function gitMerge() {
    read TO
    if [ "$TO" != "" ]; then
       echo ""
-      echoc "CYAN" "Commands:"
-      echoc "CYAN" "$ git checkout $TO"
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git checkout $TO"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM_1
@@ -152,8 +152,8 @@ function gitMerge() {
       git checkout "$TO"
       if [ "$FROM" != "" ]; then
          echo ""
-         echoc "CYAN" "Commands:"
-         echoc "CYAN" "$ git merge $FROM"
+         fnEcho "CYAN" "Commands:"
+         fnEcho "CYAN" "$ git merge $FROM"
          echo ""
          echo -n "Enter to confirm: "
          read CONFIRM_2
@@ -174,19 +174,19 @@ function gitMerge() {
 }
 
 function gitNewBranch() {
-   tput reset
-   echoc "CYAN" "----------------------------------------"
-   echoc "CYAN" " NEW-BRANCH"
-   echoc "CYAN" "----------------------------------------"
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " NEW-BRANCH"
+   fnEcho "CYAN" "----------------------------------------"
    git branch
    echo ""
    echo -n "Type branch: "
    read BRANCH
    if [ "$BRANCH" != "" ]; then
       echo ""
-      echoc "CYAN" "Commands:"
-      echoc "CYAN" "$ git checkout -b $BRANCH"
-      echoc "CYAN" "$ git push origin $BRANCH"
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git checkout -b $BRANCH"
+      fnEcho "CYAN" "$ git push origin $BRANCH"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -204,10 +204,10 @@ function gitNewBranch() {
 }
 
 function gitNewTag() {
-   tput reset
-   echoc "CYAN" "----------------------------------------"
-   echoc "CYAN" " NEW-TAG"
-   echoc "CYAN" "----------------------------------------"
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " NEW-TAG"
+   fnEcho "CYAN" "----------------------------------------"
    git tag
    echo ""
    echo -n "Type tag: "
@@ -216,9 +216,9 @@ function gitNewTag() {
    read MESSAGE
    if [[ ("$TAG" != "") && ("$MESSAGE" != "") ]]; then
       echo ""
-      echoc "CYAN" "Commands:"
-      echoc "CYAN" "$ git tag -a $TAG -m $MESSAGE"
-      echoc "CYAN" "$ git push origin $TAG"
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git tag -a $TAG -m $MESSAGE"
+      fnEcho "CYAN" "$ git push origin $TAG"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -236,10 +236,10 @@ function gitNewTag() {
 }
 
 function gitPull() {
-   tput reset
-   echoc "CYAN" "----------------------------------------"
-   echoc "CYAN" " PULL"
-   echoc "CYAN" "----------------------------------------"
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " PULL"
+   fnEcho "CYAN" "----------------------------------------"
    git branch
    echo ""
    default="$(fnCurrentBranch)"
@@ -247,8 +247,8 @@ function gitPull() {
    : ${VAR:=$default}
    if [ "$VAR" != "" ]; then
       echo ""
-      echoc "CYAN" "Commands:"
-      echoc "CYAN" "$ git pull origin $VAR"
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git pull origin $VAR"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -264,17 +264,17 @@ function gitPull() {
 }
 
 function gitPush() {
-   tput reset
-   echoc "CYAN" "----------------------------------------"
-   echoc "CYAN" " PUSH"
-   echoc "CYAN" "----------------------------------------"
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " PUSH"
+   fnEcho "CYAN" "----------------------------------------"
    BRANCH="$(fnCurrentBranch)"
    if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
-      echoc "YELLOW" "#######################################################"
-      echoc "YELLOW" "#                                                     #"
-      echoc "YELLOW" "#  You shouldn't push directly to main/master branch  #"
-      echoc "YELLOW" "#                                                     #"
-      echoc "YELLOW" "#######################################################"
+      fnEcho "YELLOW" "#######################################################"
+      fnEcho "YELLOW" "#                                                     #"
+      fnEcho "YELLOW" "#  You shouldn't push directly to main/master branch  #"
+      fnEcho "YELLOW" "#                                                     #"
+      fnEcho "YELLOW" "#######################################################"
       echo ""
       echo -n "Are you sure? (y/n): "
       read CONFIRM
@@ -290,9 +290,9 @@ function gitPush() {
    : ${VAR:=$default}
    if [ "$VAR" != "" ]; then
       echo ""
-      echoc "CYAN" "Commands:"
-      echoc "CYAN" "$ git pull origin $VAR"
-      echoc "CYAN" "$ git push origin $VAR"
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git pull origin $VAR"
+      fnEcho "CYAN" "$ git push origin $VAR"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -309,18 +309,18 @@ function gitPush() {
 }
 
 function gitRollback() {
-   tput reset
-   echoc "CYAN" "----------------------------------------"
-   echoc "CYAN" " ROLLBACK"
-   echoc "CYAN" "----------------------------------------"
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " ROLLBACK"
+   fnEcho "CYAN" "----------------------------------------"
    git log --pretty=oneline
    echo ""
    echo -n "Do you want to delete the last commit? (y/n): "
    read VAR
    if [ "$VAR" = "y" ]; then
       echo ""
-      echoc "CYAN" "Commands:"
-      echoc "CYAN" "$ git reset HEAD~1 --hard"
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git reset HEAD~1 --hard"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -337,18 +337,18 @@ function gitRollback() {
 }
 
 function gitSwitchBranch() {
-   tput reset
-   echoc "CYAN" "----------------------------------------"
-   echoc "CYAN" " SWITCH-BRANCH"
-   echoc "CYAN" "----------------------------------------"
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " SWITCH-BRANCH"
+   fnEcho "CYAN" "----------------------------------------"
    git branch
    echo ""
    echo -n "Type branch: "
    read BRANCH
    if [ "$BRANCH" != "" ]; then
       echo ""
-      echoc "CYAN" "Commands:"
-      echoc "CYAN" "$ git checkout $BRANCH"
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git checkout $BRANCH"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -365,19 +365,19 @@ function gitSwitchBranch() {
 }
 
 function gitUndo() {
-   tput reset
-   echoc "CYAN" "----------------------------------------"
-   echoc "CYAN" " UNDO"
-   echoc "CYAN" "----------------------------------------"
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " UNDO"
+   fnEcho "CYAN" "----------------------------------------"
    git status
    echo ""
    echo -n "Discard all changes? (y/n): "
    read UNDO
    if [ "$UNDO" = "y" ]; then
       echo ""
-      echoc "CYAN" "Commands:"
-      echoc "CYAN" "$ git checkout ."
-      echoc "CYAN" "$ git clean -fd"
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git checkout ."
+      fnEcho "CYAN" "$ git clean -fd"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM

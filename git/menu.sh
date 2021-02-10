@@ -15,16 +15,16 @@ source ./git/git-function.sh
 source ./git/util.sh
 
 function gitMenu() {
-   tput reset
-   echoc "LIGHT_GRAY" "#########################################"
-   echoc "LIGHT_GRAY" "#                                       #"
-   echoc "LIGHT_GRAY" "#          #####    #   #######         #"
-   echoc "LIGHT_GRAY" "#         #         #      #            #"
-   echoc "LIGHT_GRAY" "#         # #####   #      #            #"
-   echoc "LIGHT_GRAY" "#         #     #   #      #            #"
-   echoc "LIGHT_GRAY" "#          #####    #      #            #"
-   echoc "LIGHT_GRAY" "#                                       #"
-   echoc "LIGHT_GRAY" "#########################################"
+   fnClear
+   fnEcho "LIGHT_GRAY" "#########################################"
+   fnEcho "LIGHT_GRAY" "#                                       #"
+   fnEcho "LIGHT_GRAY" "#          #####    #   #######         #"
+   fnEcho "LIGHT_GRAY" "#         #         #      #            #"
+   fnEcho "LIGHT_GRAY" "#         # #####   #      #            #"
+   fnEcho "LIGHT_GRAY" "#         #     #   #      #            #"
+   fnEcho "LIGHT_GRAY" "#          #####    #      #            #"
+   fnEcho "LIGHT_GRAY" "#                                       #"
+   fnEcho "LIGHT_GRAY" "#########################################"
    echo ""
    echo " v = version control"
    echo " b = branch"
@@ -33,11 +33,11 @@ function gitMenu() {
    echo ""
    echo -n " Type option: "
    read OPTION
-   tput reset
+   fnClear
    if [ "$OPTION" = "v" ]; then
-      echoc "CYAN" "---------------------------------------"
-      echoc "CYAN" " VERSION CONTROL"
-      echoc "CYAN" "---------------------------------------"
+      fnEcho "CYAN" "---------------------------------------"
+      fnEcho "CYAN" " VERSION CONTROL"
+      fnEcho "CYAN" "---------------------------------------"
       echo " u = undo"
       echo " c = commit"
       echo " r = rollback"
@@ -48,7 +48,7 @@ function gitMenu() {
       echo ""
       echo -n " Type option: "
       read VERSION_CONTROL
-      tput reset
+      fnClear
       if [ "$VERSION_CONTROL" = "u" ]; then
          echo ""
          gitUndo
@@ -57,11 +57,11 @@ function gitMenu() {
          # Bloquear o commit na branch main/master
          BRANCH="$(git rev-parse --abbrev-ref HEAD)"
          if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
-            echoc "YELLOW" "#######################################################"
-            echoc "YELLOW" "#                                                     #"
-            echoc "YELLOW" "# You shouldn't commit directly to main/master branch #"
-            echoc "YELLOW" "#                                                     #"
-            echoc "YELLOW" "#######################################################"
+            fnEcho "YELLOW" "#######################################################"
+            fnEcho "YELLOW" "#                                                     #"
+            fnEcho "YELLOW" "# You shouldn't commit directly to main/master branch #"
+            fnEcho "YELLOW" "#                                                     #"
+            fnEcho "YELLOW" "#######################################################"
             echo ""
             echo -n "Are you sure? (y/n): "
             read CONFIRM
@@ -71,7 +71,7 @@ function gitMenu() {
                echo ""
                echo -n "Enter to return to the menu: "
                read CLOSE
-               tput reset
+               fnClear
                gitMenu
             fi
          else
@@ -92,34 +92,34 @@ function gitMenu() {
       fi
       if [ "$VERSION_CONTROL" = "h" ]; then
          echo ""
-         echoc "CYAN" "---------------------------------------"
-         echoc "CYAN" " COMMIT + PUSH"
-         echoc "CYAN" "---------------------------------------"
+         fnEcho "CYAN" "---------------------------------------"
+         fnEcho "CYAN" " COMMIT + PUSH"
+         fnEcho "CYAN" "---------------------------------------"
          # Bloquear o commit na branch main/master
          BRANCH="$(git rev-parse --abbrev-ref HEAD)"
          if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
-            echoc "YELLOW" "#######################################################"
-            echoc "YELLOW" "#                                                     #"
-            echoc "YELLOW" "# You shouldn't commit directly to main/master branch #"
-            echoc "YELLOW" "#                                                     #"
-            echoc "YELLOW" "#######################################################"
+            fnEcho "YELLOW" "#######################################################"
+            fnEcho "YELLOW" "#                                                     #"
+            fnEcho "YELLOW" "# You shouldn't commit directly to main/master branch #"
+            fnEcho "YELLOW" "#                                                     #"
+            fnEcho "YELLOW" "#######################################################"
             echo ""
             echo -n "Are you sure? (y/n): "
             read CONFIRM
             if [ "$CONFIRM" = "y" ]; then
                gitCommit
-               # tput reset
+               # fnClear
                gitPush
             else
                echo ""
                echo -n "Enter to return to the menu: "
                read CLOSE
-               # tput reset
+               # fnClear
                gitMenu
             fi
          else
             gitCommit
-            # tput reset
+            # fnClear
             gitPush
          fi
       fi
@@ -130,9 +130,9 @@ function gitMenu() {
 
    if [ "$OPTION" = "b" ]; then
       echo ""
-      echoc "CYAN" "---------------------------------------"
-      echoc "CYAN" " BRANCH"
-      echoc "CYAN" "---------------------------------------"
+      fnEcho "CYAN" "---------------------------------------"
+      fnEcho "CYAN" " BRANCH"
+      fnEcho "CYAN" "---------------------------------------"
       echo " n = new-branch"
       echo " d = delete-branch"
       echo " s = switch-branch"
@@ -141,7 +141,7 @@ function gitMenu() {
       echo ""
       echo -n " Type option: "
       read BRANCH
-      tput reset
+      fnClear
       if [ "$BRANCH" = "n" ]; then
          echo ""
          gitNewbranch
@@ -165,16 +165,16 @@ function gitMenu() {
 
    if [ "$OPTION" = "t" ]; then
       echo ""
-      echoc "CYAN" "---------------------------------------"
-      echoc "CYAN" " TAG"
-      echoc "CYAN" "---------------------------------------"
+      fnEcho "CYAN" "---------------------------------------"
+      fnEcho "CYAN" " TAG"
+      fnEcho "CYAN" "---------------------------------------"
       echo " n = new-tag"
       echo " d = delete-tag"
       echo " x = exit"
       echo ""
       echo -n " Type option: "
       read TAG
-      tput reset
+      fnClear
       if [ "$TAG" = "n" ]; then
          echo ""
          gitNewtag
