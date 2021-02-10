@@ -11,6 +11,37 @@
 #                                                                    #
 ######################################################################
 #
+function gitUndo() {
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " UNDO"
+   fnEcho "CYAN" "----------------------------------------"
+   git status
+   echo ""
+   # echo -e "\033[33;36m Color Text" - Cyan
+   # echo -n "Discard all changes? (y/n): "
+   fnEcho "YELLOW" "Discard all changes? (y/n): " 
+   echo -n
+   read UNDO
+   if [ "$UNDO" = "y" ]; then
+      echo ""
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git checkout ."
+      fnEcho "CYAN" "$ git clean -fd"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+      git checkout .
+      git clean -fd
+      echo "Discarded changes."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read MENU
+   gitMenu
+}
+
 function gitCommit() {
    fnClear
    fnEcho "CYAN" "----------------------------------------"
@@ -20,7 +51,8 @@ function gitCommit() {
    if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
       fnEcho "YELLOW" "#######################################################"
       fnEcho "YELLOW" "#                                                     #"
-      fnEcho "YELLOW" "# You shouldn't commit directly to main/master branch #"
+      fnEcho "YELLOW" "#  It's not recommended to commit directly to main or #"
+      fnEcho "YELLOW" "#  master branch.                                     #"
       fnEcho "YELLOW" "#                                                     #"
       fnEcho "YELLOW" "#######################################################"
       echo ""
@@ -50,8 +82,62 @@ function gitCommit() {
       echo "Invalid parameter. Nothing to do."
    fi
    echo ""
+   echo "$1"
    echo -n "Enter to continue: "
    read MENU
+   # Verificar a origem
+   if [ "$1" = "c" ]; then
+      gitMenu
+   fi
+   if [ "$1" = "f" ]; then
+      gitPush
+   fi
+}
+
+function gitPush() {
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " PUSH"
+   fnEcho "CYAN" "----------------------------------------"
+   BRANCH="$(fnCurrentBranch)"
+   if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
+      fnEcho "YELLOW" "#######################################################"
+      fnEcho "YELLOW" "#                                                     #"
+      fnEcho "YELLOW" "#  It's not recommended to push directly to main or   #"
+      fnEcho "YELLOW" "#  master branch.                                     #"
+      fnEcho "YELLOW" "#                                                     #"
+      fnEcho "YELLOW" "#######################################################"
+      echo ""
+      echo -n "Are you sure? (y/n): "
+      read CONFIRM
+      if [ "$CONFIRM" != "y" ]; then
+         gitMenu
+      fi
+   fi
+   echo ""
+   git branch
+   echo ""
+   default="$(fnCurrentBranch)"
+   read -p "Type branch [$default]: " VAR
+   : ${VAR:=$default}
+   if [ "$VAR" != "" ]; then
+      echo ""
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git pull origin $VAR"
+      fnEcho "CYAN" "$ git push origin $VAR"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+      git pull origin "$VAR"
+      git push origin "$VAR"
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read MENU
+   gitMenu
 }
 
 function gitDeleteBranch() {
@@ -263,51 +349,6 @@ function gitPull() {
    gitMenu
 }
 
-function gitPush() {
-   fnClear
-   fnEcho "CYAN" "----------------------------------------"
-   fnEcho "CYAN" " PUSH"
-   fnEcho "CYAN" "----------------------------------------"
-   BRANCH="$(fnCurrentBranch)"
-   if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
-      fnEcho "YELLOW" "#######################################################"
-      fnEcho "YELLOW" "#                                                     #"
-      fnEcho "YELLOW" "#  You shouldn't push directly to main/master branch  #"
-      fnEcho "YELLOW" "#                                                     #"
-      fnEcho "YELLOW" "#######################################################"
-      echo ""
-      echo -n "Are you sure? (y/n): "
-      read CONFIRM
-      if [ "$CONFIRM" != "y" ]; then
-         gitMenu
-      fi
-   fi
-   echo ""
-   git branch
-   echo ""
-   default="$(fnCurrentBranch)"
-   read -p "Type branch [$default]: " VAR
-   : ${VAR:=$default}
-   if [ "$VAR" != "" ]; then
-      echo ""
-      fnEcho "CYAN" "Commands:"
-      fnEcho "CYAN" "$ git pull origin $VAR"
-      fnEcho "CYAN" "$ git push origin $VAR"
-      echo ""
-      echo -n "Enter to confirm: "
-      read CONFIRM
-      echo ""
-      git pull origin "$VAR"
-      git push origin "$VAR"
-   else
-      echo "Invalid parameter. Nothing to do."
-   fi
-   echo ""
-   echo -n "Enter to return to the menu: "
-   read MENU
-   gitMenu
-}
-
 function gitRollback() {
    fnClear
    fnEcho "CYAN" "----------------------------------------"
@@ -355,36 +396,6 @@ function gitSwitchBranch() {
       echo ""
       git checkout "$BRANCH"
       # echo "Switched to branch $BRANCH."
-   else
-      echo "Invalid parameter. Nothing to do."
-   fi
-   echo ""
-   echo -n "Enter to return to the menu: "
-   read MENU
-   gitMenu
-}
-
-function gitUndo() {
-   fnClear
-   fnEcho "CYAN" "----------------------------------------"
-   fnEcho "CYAN" " UNDO"
-   fnEcho "CYAN" "----------------------------------------"
-   git status
-   echo ""
-   echo -n "Discard all changes? (y/n): "
-   read UNDO
-   if [ "$UNDO" = "y" ]; then
-      echo ""
-      fnEcho "CYAN" "Commands:"
-      fnEcho "CYAN" "$ git checkout ."
-      fnEcho "CYAN" "$ git clean -fd"
-      echo ""
-      echo -n "Enter to confirm: "
-      read CONFIRM
-      echo ""
-      git checkout .
-      git clean -fd
-      echo "Discarded changes."
    else
       echo "Invalid parameter. Nothing to do."
    fi

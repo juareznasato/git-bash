@@ -16,15 +16,15 @@ source ./git/util.sh
 
 function gitMenu() {
    fnClear
-   fnEcho "LIGHT_GRAY" "#########################################"
-   fnEcho "LIGHT_GRAY" "#                                       #"
-   fnEcho "LIGHT_GRAY" "#          #####    #   #######         #"
-   fnEcho "LIGHT_GRAY" "#         #         #      #            #"
-   fnEcho "LIGHT_GRAY" "#         # #####   #      #            #"
-   fnEcho "LIGHT_GRAY" "#         #     #   #      #            #"
-   fnEcho "LIGHT_GRAY" "#          #####    #      #            #"
-   fnEcho "LIGHT_GRAY" "#                                       #"
-   fnEcho "LIGHT_GRAY" "#########################################"
+   fnEcho "WHITE" "#########################################"
+   fnEcho "WHITE" "#                                       #"
+   fnEcho "WHITE" "#          #####    #   #######         #"
+   fnEcho "WHITE" "#         #         #      #            #"
+   fnEcho "WHITE" "#         # #####   #      #            #"
+   fnEcho "WHITE" "#         #     #   #      #            #"
+   fnEcho "WHITE" "#          #####    #      #            #"
+   fnEcho "WHITE" "#                                       #"
+   fnEcho "WHITE" "#########################################"
    echo ""
    echo " v = version control"
    echo " b = branch"
@@ -43,7 +43,7 @@ function gitMenu() {
       echo " r = rollback"
       echo " l = pull"
       echo " p = push"
-      echo " h = commit + push"
+      echo " f = commit + push"
       echo " x = exit"
       echo ""
       echo -n " Type option: "
@@ -54,29 +54,8 @@ function gitMenu() {
          gitUndo
       fi
       if [ "$VERSION_CONTROL" = "c" ]; then
-         # Bloquear o commit na branch main/master
-         BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-         if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
-            fnEcho "YELLOW" "#######################################################"
-            fnEcho "YELLOW" "#                                                     #"
-            fnEcho "YELLOW" "# You shouldn't commit directly to main/master branch #"
-            fnEcho "YELLOW" "#                                                     #"
-            fnEcho "YELLOW" "#######################################################"
-            echo ""
-            echo -n "Are you sure? (y/n): "
-            read CONFIRM
-            if [ "$CONFIRM" = "y" ]; then
-               gitCommit
-            else
-               echo ""
-               echo -n "Enter to return to the menu: "
-               read CLOSE
-               fnClear
-               gitMenu
-            fi
-         else
-            gitCommit
-         fi
+         echo ""
+         gitCommit "c"
       fi
       if [ "$VERSION_CONTROL" = "r" ]; then
          echo ""
@@ -90,38 +69,10 @@ function gitMenu() {
          echo ""
          gitPush
       fi
-      if [ "$VERSION_CONTROL" = "h" ]; then
+      if [ "$VERSION_CONTROL" = "f" ]; then
          echo ""
-         fnEcho "CYAN" "---------------------------------------"
-         fnEcho "CYAN" " COMMIT + PUSH"
-         fnEcho "CYAN" "---------------------------------------"
-         # Bloquear o commit na branch main/master
-         BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-         if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
-            fnEcho "YELLOW" "#######################################################"
-            fnEcho "YELLOW" "#                                                     #"
-            fnEcho "YELLOW" "# You shouldn't commit directly to main/master branch #"
-            fnEcho "YELLOW" "#                                                     #"
-            fnEcho "YELLOW" "#######################################################"
-            echo ""
-            echo -n "Are you sure? (y/n): "
-            read CONFIRM
-            if [ "$CONFIRM" = "y" ]; then
-               gitCommit
-               # fnClear
-               gitPush
-            else
-               echo ""
-               echo -n "Enter to return to the menu: "
-               read CLOSE
-               # fnClear
-               gitMenu
-            fi
-         else
-            gitCommit
-            # fnClear
-            gitPush
-         fi
+         gitCommit "f"
+         gitPush
       fi
       if [ "$OPTION" = "x" ]; then
          echo "Exiting..."
@@ -144,15 +95,15 @@ function gitMenu() {
       fnClear
       if [ "$BRANCH" = "n" ]; then
          echo ""
-         gitNewbranch
+         gitNewBranch
       fi
       if [ "$BRANCH" = "d" ]; then
          echo ""
-         gitDeletebranch
+         gitDeleteBranch
       fi
       if [ "$BRANCH" = "s" ]; then
          echo ""
-         gitSwitchbranch
+         gitSwitchBranch
       fi
       if [ "$BRANCH" = "m" ]; then
          echo ""
