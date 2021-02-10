@@ -9,3 +9,8 @@ function echoc() {
 
     printf "${!1}${2} ${NC}\n"
 }
+
+function fnCurrentBranch() {
+    # printf "$(git symbolic-ref -q --short HEAD)"
+    printf "$(git rev-parse --abbrev-ref HEAD)"
+}

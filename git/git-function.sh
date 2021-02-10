@@ -16,7 +16,7 @@ function gitCommit() {
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " COMMIT"
    echoc "CYAN" "----------------------------------------"
-   BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+   BRANCH="$(fnCurrentBranch)"
    if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
       echoc "YELLOW" "#######################################################"
       echoc "YELLOW" "#                                                     #"
@@ -159,14 +159,8 @@ function gitMerge() {
          read CONFIRM_2
          echo ""
          git merge "$FROM"
-         # Para finalizar é necessário realizar um push na branch de destino
-         # echo -n "Do you want to push to the target branch? (y/n): "
-         #read PUSH
-         #if [ "$PUSH" = "y" ]
-         #then
          echo ""
-         ./git/git-push.sh
-         #fi
+         gitPush
       else
          echo "Invalid parameter. Nothing to do."
       fi
@@ -188,17 +182,15 @@ function gitNewBranch() {
    echo ""
    echo -n "Type branch: "
    read BRANCH
-
    if [ "$BRANCH" != "" ]; then
       echo ""
       echoc "CYAN" "Commands:"
       echoc "CYAN" "$ git checkout -b $BRANCH"
-      ecechoc "CYAN"ho "$ git push origin $BRANCH"
+      echoc "CYAN" "$ git push origin $BRANCH"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
       echo ""
-
       git checkout -b "$BRANCH"
       git push origin "$BRANCH"
       echo "Branch $BRANCH created."
@@ -222,7 +214,6 @@ function gitNewTag() {
    read TAG
    echo -n "Message: "
    read MESSAGE
-
    if [[ ("$TAG" != "") && ("$MESSAGE" != "") ]]; then
       echo ""
       echoc "CYAN" "Commands:"
@@ -232,7 +223,6 @@ function gitNewTag() {
       echo -n "Enter to confirm: "
       read CONFIRM
       echo ""
-
       git tag -a "$TAG" -m "$MESSAGE"
       git push origin "$TAG"
       echo "Tag $TAG created."
@@ -252,8 +242,7 @@ function gitPull() {
    echoc "CYAN" "----------------------------------------"
    git branch
    echo ""
-   # default=""
-   default=$(git symbolic-ref -q --short HEAD)
+   default="$(fnCurrentBranch)"
    read -p "Type branch [$default]: " VAR
    : ${VAR:=$default}
    if [ "$VAR" != "" ]; then
@@ -264,7 +253,6 @@ function gitPull() {
       echo -n "Enter to confirm: "
       read CONFIRM
       echo ""
-
       git pull origin "$VAR"
    else
       echo "Invalid parameter. Nothing to do."
@@ -280,7 +268,7 @@ function gitPush() {
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " PUSH"
    echoc "CYAN" "----------------------------------------"
-   BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+   BRANCH="$(fnCurrentBranch)"
    if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
       echoc "YELLOW" "#######################################################"
       echoc "YELLOW" "#                                                     #"
@@ -297,7 +285,7 @@ function gitPush() {
    echo ""
    git branch
    echo ""
-   default=$(git symbolic-ref -q --short HEAD)
+   default="$(fnCurrentBranch)"
    read -p "Type branch [$default]: " VAR
    : ${VAR:=$default}
    if [ "$VAR" != "" ]; then
@@ -329,7 +317,6 @@ function gitRollback() {
    echo ""
    echo -n "Do you want to delete the last commit? (y/n): "
    read VAR
-
    if [ "$VAR" = "y" ]; then
       echo ""
       echoc "CYAN" "Commands:"
@@ -338,7 +325,6 @@ function gitRollback() {
       echo -n "Enter to confirm: "
       read CONFIRM
       echo ""
-
       git reset HEAD~1 --hard
       echo "Last commit deleted."
    else
@@ -359,7 +345,6 @@ function gitSwitchBranch() {
    echo ""
    echo -n "Type branch: "
    read BRANCH
-
    if [ "$BRANCH" != "" ]; then
       echo ""
       echoc "CYAN" "Commands:"
@@ -368,7 +353,6 @@ function gitSwitchBranch() {
       echo -n "Enter to confirm: "
       read CONFIRM
       echo ""
-
       git checkout "$BRANCH"
       # echo "Switched to branch $BRANCH."
    else
@@ -389,7 +373,6 @@ function gitUndo() {
    echo ""
    echo -n "Discard all changes? (y/n): "
    read UNDO
-
    if [ "$UNDO" = "y" ]; then
       echo ""
       echoc "CYAN" "Commands:"
@@ -399,7 +382,6 @@ function gitUndo() {
       echo -n "Enter to confirm: "
       read CONFIRM
       echo ""
-
       git checkout .
       git clean -fd
       echo "Discarded changes."
