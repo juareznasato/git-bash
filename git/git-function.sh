@@ -12,9 +12,25 @@
 ######################################################################
 #
 function gitCommit() {
+   tput reset
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " COMMIT"
    echoc "CYAN" "----------------------------------------"
+   BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+   if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
+      echoc "YELLOW" "#######################################################"
+      echoc "YELLOW" "#                                                     #"
+      echoc "YELLOW" "# You shouldn't commit directly to main/master branch #"
+      echoc "YELLOW" "#                                                     #"
+      echoc "YELLOW" "#######################################################"
+      echo ""
+      echo -n "Are you sure? (y/n): "
+      read CONFIRM
+      if [ "$CONFIRM" != "y" ]; then
+         gitMenu
+      fi
+   fi
+   echo ""
    git status
    echo ""
    echo -n "Message: "
@@ -39,6 +55,7 @@ function gitCommit() {
 }
 
 function gitDeleteBranch() {
+   tput reset
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " DELETE-BRANCH"
    echoc "CYAN" "----------------------------------------"
@@ -79,6 +96,7 @@ function gitDeleteBranch() {
 }
 
 function gitDeleteTag() {
+   tput reset
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" "DELETE-TAG"
    echoc "CYAN" "----------------------------------------"
@@ -112,6 +130,7 @@ function gitDeleteTag() {
 }
 
 function gitMerge() {
+   tput reset
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " MERGE"
    echoc "CYAN" "----------------------------------------"
@@ -161,6 +180,7 @@ function gitMerge() {
 }
 
 function gitNewBranch() {
+   tput reset
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " NEW-BRANCH"
    echoc "CYAN" "----------------------------------------"
@@ -192,6 +212,7 @@ function gitNewBranch() {
 }
 
 function gitNewTag() {
+   tput reset
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " NEW-TAG"
    echoc "CYAN" "----------------------------------------"
@@ -225,6 +246,7 @@ function gitNewTag() {
 }
 
 function gitPull() {
+   tput reset
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " PULL"
    echoc "CYAN" "----------------------------------------"
@@ -254,9 +276,25 @@ function gitPull() {
 }
 
 function gitPush() {
+   tput reset
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " PUSH"
    echoc "CYAN" "----------------------------------------"
+   BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+   if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
+      echoc "YELLOW" "#######################################################"
+      echoc "YELLOW" "#                                                     #"
+      echoc "YELLOW" "#  You shouldn't push directly to main/master branch  #"
+      echoc "YELLOW" "#                                                     #"
+      echoc "YELLOW" "#######################################################"
+      echo ""
+      echo -n "Are you sure? (y/n): "
+      read CONFIRM
+      if [ "$CONFIRM" != "y" ]; then
+         gitMenu
+      fi
+   fi
+   echo ""
    git branch
    echo ""
    default=$(git symbolic-ref -q --short HEAD)
@@ -283,6 +321,7 @@ function gitPush() {
 }
 
 function gitRollback() {
+   tput reset
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " ROLLBACK"
    echoc "CYAN" "----------------------------------------"
@@ -312,6 +351,7 @@ function gitRollback() {
 }
 
 function gitSwitchBranch() {
+   tput reset
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " SWITCH-BRANCH"
    echoc "CYAN" "----------------------------------------"
@@ -341,6 +381,7 @@ function gitSwitchBranch() {
 }
 
 function gitUndo() {
+   tput reset
    echoc "CYAN" "----------------------------------------"
    echoc "CYAN" " UNDO"
    echoc "CYAN" "----------------------------------------"
