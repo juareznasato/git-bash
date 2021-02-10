@@ -37,11 +37,11 @@ function gitCommit() {
    read MESSAGE
    if [ "$MESSAGE" != "" ]; then
       echo ""
-      echo "Commands:"
-      echo "$ git add ."
-      echo "$ git commit -m $MESSAGE"
+      echoc "CYAN" "Commands:"
+      echoc "CYAN" "$ git add ."
+      echoc "CYAN" "$ git commit -m $MESSAGE"
       echo ""
-      echo -n "Enter to continue: "
+      echo -n "Enter to confirm: "
       read CONFIRM
       echo ""
       git add .
@@ -70,12 +70,12 @@ function gitDeleteBranch() {
 
    if [[ ("$BRANCH" != "") && ("$BRANCH" != "main") && ("$BRANCH" != "master") && ("$MAIN_BRANCH" != "") ]]; then
       echo ""
-      echo "Commands:"
-      echo "$ git checkout $MAIN_BRANCH"
-      echo "$ git push origin $BRANCH --delete"
-      echo "$ git branch -D $BRANCH"
+      echoc "CYAN" "Commands:"
+      echoc "CYAN" "$ git checkout $MAIN_BRANCH"
+      echoc "CYAN" "$ git push origin $BRANCH --delete"
+      echoc "CYAN" "$ git branch -D $BRANCH"
       echo ""
-      echo -n "Enter to continue: "
+      echo -n "Enter to confirm: "
       read CONFIRM
       echo ""
 
@@ -107,9 +107,9 @@ function gitDeleteTag() {
 
    if [ "$TAG" != "" ]; then
       echo ""
-      echo "Commands:"
-      echo "$ git push origin $TAG --delete"
-      echo "$ git tag -d $TAG"
+      echoc "CYAN" "Commands:"
+      echoc "CYAN" "$ git push origin $TAG --delete"
+      echoc "CYAN" "$ git tag -d $TAG"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -142,8 +142,8 @@ function gitMerge() {
    read TO
    if [ "$TO" != "" ]; then
       echo ""
-      echo "Commands:"
-      echo "$ git checkout $TO"
+      echoc "CYAN" "Commands:"
+      echoc "CYAN" "$ git checkout $TO"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM_1
@@ -152,11 +152,11 @@ function gitMerge() {
       git checkout "$TO"
       if [ "$FROM" != "" ]; then
          echo ""
-         echo "Commands:"
-         echo "$ git merge $FROM"
-         read CONFIRM_2
+         echoc "CYAN" "Commands:"
+         echoc "CYAN" "$ git merge $FROM"
          echo ""
          echo -n "Enter to confirm: "
+         read CONFIRM_2
          echo ""
          git merge "$FROM"
          # Para finalizar é necessário realizar um push na branch de destino
@@ -191,11 +191,11 @@ function gitNewBranch() {
 
    if [ "$BRANCH" != "" ]; then
       echo ""
-      echo "Commands:"
-      echo "$ git checkout -b $BRANCH"
-      echo "$ git push origin $BRANCH"
+      echoc "CYAN" "Commands:"
+      echoc "CYAN" "$ git checkout -b $BRANCH"
+      ecechoc "CYAN"ho "$ git push origin $BRANCH"
       echo ""
-      echo -n "Enter to continue: "
+      echo -n "Enter to confirm: "
       read CONFIRM
       echo ""
 
@@ -225,9 +225,9 @@ function gitNewTag() {
 
    if [[ ("$TAG" != "") && ("$MESSAGE" != "") ]]; then
       echo ""
-      echo "Commands:"
-      echo "$ git tag -a $TAG -m $MESSAGE"
-      echo "$ git push origin $TAG"
+      echoc "CYAN" "Commands:"
+      echoc "CYAN" "$ git tag -a $TAG -m $MESSAGE"
+      echoc "CYAN" "$ git push origin $TAG"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -258,8 +258,8 @@ function gitPull() {
    : ${VAR:=$default}
    if [ "$VAR" != "" ]; then
       echo ""
-      echo "Commands:"
-      echo "$ git pull origin $VAR"
+      echoc "CYAN" "Commands:"
+      echoc "CYAN" "$ git pull origin $VAR"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -302,9 +302,9 @@ function gitPush() {
    : ${VAR:=$default}
    if [ "$VAR" != "" ]; then
       echo ""
-      echo "Commands:"
-      echo "$ git pull origin $VAR"
-      echo "$ git push origin $VAR"
+      echoc "CYAN" "Commands:"
+      echoc "CYAN" "$ git pull origin $VAR"
+      echoc "CYAN" "$ git push origin $VAR"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -332,8 +332,8 @@ function gitRollback() {
 
    if [ "$VAR" = "y" ]; then
       echo ""
-      echo "Commands:"
-      echo "$ git reset HEAD~1 --hard"
+      echoc "CYAN" "Commands:"
+      echoc "CYAN" "$ git reset HEAD~1 --hard"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -362,8 +362,8 @@ function gitSwitchBranch() {
 
    if [ "$BRANCH" != "" ]; then
       echo ""
-      echo "Commands:"
-      echo "$ git checkout $BRANCH"
+      echoc "CYAN" "Commands:"
+      echoc "CYAN" "$ git checkout $BRANCH"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
@@ -392,9 +392,9 @@ function gitUndo() {
 
    if [ "$UNDO" = "y" ]; then
       echo ""
-      echo "Commands:"
-      echo "$ git checkout ."
-      echo "$ git clean -fd"
+      echoc "CYAN" "Commands:"
+      echoc "CYAN" "$ git checkout ."
+      echoc "CYAN" "$ git clean -fd"
       echo ""
       echo -n "Enter to confirm: "
       read CONFIRM
