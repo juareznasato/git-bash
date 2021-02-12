@@ -82,7 +82,6 @@ function gitCommit() {
       echo "Invalid parameter. Nothing to do."
    fi
    echo ""
-   echo "$1"
    echo -n "Enter to continue: "
    read MENU
    # Verificar a origem
