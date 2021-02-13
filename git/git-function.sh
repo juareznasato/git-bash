@@ -84,13 +84,7 @@ function gitCommit() {
    echo ""
    echo -n "Enter to continue: "
    read MENU
-   # Verificar a origem
-   if [ "$1" = "c" ]; then
-      gitMenu
-   fi
-   if [ "$1" = "f" ]; then
-      gitPush
-   fi
+   gitMenu
 }
 
 function gitPush() {
@@ -138,6 +132,61 @@ function gitPush() {
    read MENU
    gitMenu
 }
+
+function gitCommitPush() {
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " COMMIT + PUSH"
+   fnEcho "CYAN" "----------------------------------------"
+   BRANCH="$(fnCurrentBranch)"
+   if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
+      fnEcho "YELLOW" "#######################################################"
+      fnEcho "YELLOW" "#                                                     #"
+      fnEcho "YELLOW" "#  It's not recommended to commit directly to main or #"
+      fnEcho "YELLOW" "#  master branch.                                     #"
+      fnEcho "YELLOW" "#                                                     #"
+      fnEcho "YELLOW" "#######################################################"
+      echo ""
+      echo -n "Are you sure? (y/n): "
+      read CONFIRM
+      if [ "$CONFIRM" != "y" ]; then
+         gitMenu
+      fi
+   fi
+   echo ""
+   git status
+   echo ""
+   # Obter mensagem do commit
+   echo -n "Commit Message: "
+   read MESSAGE
+   # Obter branch para o push
+   default="$(fnCurrentBranch)"
+   read -p "Type branch to push [$default]: " BRANCH
+   : ${BRANCH:=$default}
+   if [[ ("$MESSAGE" != "") && ("$BRANCH" != "") ]]; then
+      echo ""
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git add ."
+      fnEcho "CYAN" "$ git commit -m $MESSAGE"
+      fnEcho "CYAN" "$ git pull origin $BRANCH"
+      fnEcho "CYAN" "$ git push origin $BRANCH"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+      git add .
+      git commit -m "$MESSAGE"
+      git pull origin "$BRANCH"
+      git push origin "$BRANCH"
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to continue: "
+   read MENU
+   gitMenu
+}
+
 
 function gitDeleteBranch() {
    fnClear

@@ -55,7 +55,7 @@ function gitMenu() {
       fi
       if [ "$VERSION_CONTROL" = "c" ]; then
          echo ""
-         gitCommit "c"
+         gitCommit
       fi
       if [ "$VERSION_CONTROL" = "r" ]; then
          echo ""
@@ -71,8 +71,7 @@ function gitMenu() {
       fi
       if [ "$VERSION_CONTROL" = "f" ]; then
          echo ""
-         gitCommit "f"
-         gitPush
+         gitCommitPush
       fi
       if [ "$OPTION" = "x" ]; then
          exit
