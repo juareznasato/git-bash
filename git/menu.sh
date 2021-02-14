@@ -86,7 +86,9 @@ function gitMenu() {
       echo " n = new-branch"
       echo " d = delete-branch"
       echo " s = switch-branch"
+      echo " c = compare branchs"
       echo " m = merge"
+      echo " a = abort merge"
       echo " x = exit"
       echo ""
       echo -n " Type option: "
@@ -104,9 +106,17 @@ function gitMenu() {
          echo ""
          gitSwitchBranch
       fi
+      if [ "$BRANCH" = "c" ]; then
+         echo ""
+         gitCompareBranch
+      fi
       if [ "$BRANCH" = "m" ]; then
          echo ""
          gitMerge
+      fi
+      if [ "$BRANCH" = "a" ]; then
+         echo ""
+         gitAbortMerge
       fi
       if [ "$OPTION" = "x" ]; then
          exit

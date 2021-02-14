@@ -298,6 +298,32 @@ function gitMerge() {
    gitMenu
 }
 
+function gitAbortMerge() {
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " ABORT MERGE"
+   fnEcho "CYAN" "----------------------------------------"
+   echo ""
+   fnEcho "YELLOW" "Abort merge? (y/n): " 
+   echo -n
+   read UNDO
+   if [ "$UNDO" = "y" ]; then
+      echo ""
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git merge --abort"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+      git merge --abort
+      echo "Aborted merge."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read MENU
+   gitMenu
+}
+
 function gitNewBranch() {
    fnClear
    fnEcho "CYAN" "----------------------------------------"
@@ -435,6 +461,36 @@ function gitSwitchBranch() {
       echo ""
       git checkout "$BRANCH"
       # echo "Switched to branch $BRANCH."
+   else
+      echo "Invalid parameter. Nothing to do."
+   fi
+   echo ""
+   echo -n "Enter to return to the menu: "
+   read MENU
+   gitMenu
+}
+
+function gitCompareBranch() {
+   fnClear
+   fnEcho "CYAN" "----------------------------------------"
+   fnEcho "CYAN" " COMPARE BRANCHES"
+   fnEcho "CYAN" "----------------------------------------"
+   git branch
+   echo ""
+   echo -n "Type branch 1: "
+   read BRANCH_1
+   echo -n "Type branch 2: "
+   read BRANCH_2
+   if [[ ("$BRANCH_1" != "") && ("$BRANCH_2" != "") ]]; then
+      echo ""
+      fnEcho "CYAN" "Commands:"
+      fnEcho "CYAN" "$ git diff $BRANCH_1..$BRANCH_2"
+      echo ""
+      echo -n "Enter to confirm: "
+      read CONFIRM
+      echo ""
+      git diff "$BRANCH_1".."$BRANCH_2"
+      echo ""
    else
       echo "Invalid parameter. Nothing to do."
    fi
